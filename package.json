@@ -1,0 +1,19 @@
+{
+  "name": "projet-02-la-main-verte-back",
+  "version": "1.0.0",
+  "description": "Projet la main verte - back API ",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/O-clock-Empanadas/projet-02-la-main-verte-back.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/O-clock-Empanadas/projet-02-la-main-verte-back/issues"
+  },
+  "homepage": "https://github.com/O-clock-Empanadas/projet-02-la-main-verte-back#readme"
+}
