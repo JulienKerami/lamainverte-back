@@ -1,3 +1,5 @@
+const { User } = require('../models/index.model');
+
 const userController = {
 
   loginPage(_, res) {
