@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nodemon index.js",
-    "create_tables": "psql -U postgres -d postgres -a -f create_tables.sql"
+    "create_tables": "psql -U administrateurlamainverte -d lamainverte -f data/create_tables.sql"
   },
   "repository": {
     "type": "git",
