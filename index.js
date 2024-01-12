@@ -7,7 +7,7 @@ const { rateLimit } = require("express-rate-limit"); // module express pour évi
 // const cors = require("cors"); // Sécurité avec le module CORS TODO
 const sanitizeHtml = require("sanitize-html"); // SECURITE doc : https://www.npmjs.com/package/sanitize-html
 
-const router = require("./src/routers");
+const router = require("./src/routers/mainRouteur");
 
 
 // Creation app Express
@@ -29,10 +29,11 @@ app.use(express.urlencoded({ extended: true })); // Body parser pour les body de
 // TODO : penser à mettre le middleware sanitize html ici pour retirer le code malveillant du body, voir exemple S06 
 
 // Configuration du serveur
-app.use("/api", router);
+app.use(router);
 
 // Lancer le serveur
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
+
