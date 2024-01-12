@@ -7,7 +7,7 @@ const { rateLimit } = require("express-rate-limit"); // module express pour évi
 // const cors = require("cors"); // Sécurité avec le module CORS TODO
 const sanitizeHtml = require("sanitize-html"); // SECURITE doc : https://www.npmjs.com/package/sanitize-html
 
-const router = require("./src/routers/mainRouteur");
+const router = require("./src/routers");
 
 
 // Creation app Express
