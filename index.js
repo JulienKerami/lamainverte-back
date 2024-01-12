@@ -5,6 +5,7 @@ require("dotenv/config");
 const express = require("express"); // module express classique
 const { rateLimit } = require("express-rate-limit"); // module express pour éviter les DDOS
 // const cors = require("cors"); // Sécurité avec le module CORS TODO
+
 const sanitizeHtml = require("sanitize-html"); // SECURITE doc : https://www.npmjs.com/package/sanitize-html
 
 const router = require("./src/routers");
@@ -15,10 +16,11 @@ const app = express();
 
 // middleware rate limiting
 const limiter = rateLimit({
-    windowMs: 1 * 60 * 1000, // 1 minute
-    limit: 1000 // 1000 requête en 1 minute
-  });
-  app.use(limiter);
+  windowMs: 1 * 60 * 1000, // 1 minute
+  limit: 1000 // 1000 requête en 1 minute
+});
+
+app.use(limiter);
 
 
 // Ajout d'un body parser
