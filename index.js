@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true })); // Body parser pour les body de
 // TODO : penser à mettre le middleware sanitize html ici pour retirer le code malveillant du body, voir exemple S06 
 
 // Configuration du serveur
-app.use(router);
+app.use("/api", router);
 
 // Lancer le serveur
 const port = process.env.PORT || 3000;
