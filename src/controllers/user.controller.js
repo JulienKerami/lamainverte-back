@@ -96,13 +96,7 @@ async function loginUser(req, res) {
   }
 }
 
-
-function userPage(_, res) {
-  res.send("Page user");
-}
-
 module.exports = {
   createUser,
-  userPage,
   loginUser
 };
