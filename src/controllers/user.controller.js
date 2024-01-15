@@ -1,6 +1,7 @@
 const { User } = require('../models/index.model');
 const emailValidator = require("email-validator");
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 // Fonction qui crée un user à partir des données envoyées en front
 async function createUser(req, res) {
@@ -8,7 +9,7 @@ async function createUser(req, res) {
   try {
     const {firstname, lastname, email, password} = req.body;
 
-    // Gérer les erreurs possibles avec des if : contrôle de firstname qui est une sstring, lastname aussi, vérifier qu'il y a bien les 2 informations not null     (missing)
+    // Gérer les erreurs possibles avec des if : contrôle de firstname qui est une string, lastname aussi, vérifier qu'il y a bien les 2 informations not null     (missing)
     // Vérifier que le password est bien une string
     // Vérifier que le password fait au moins 8 caractères
 
@@ -56,6 +57,8 @@ async function createUser(req, res) {
       email: email,
       password: encryptedPassword
     });
+
+  
     res.status(200).json(user);
     
   } catch (error) {
@@ -87,8 +90,11 @@ async function loginUser(req, res) {
       return;
     }
     
+    // Générer un token pour l'utilisateur
+    const token = jwt.sign({ id: user.id }, `${process.env.SECRET_KEY}`, { expiresIn: '1h' });
+
     // Si tout est ok, on renvoie l'utilisateur
-    res.status(200).json(user);
+    res.status(200).json({ user: user, token: token });
 
     
   } catch (error) {
