@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nodemon index.js",
+    "connect_bdd" : "psql -U administrateurlamainverte -d lamainverte",
     "create_tables": "psql -U administrateurlamainverte -d lamainverte -f data/create_tables.sql"
   },
   "repository": {
