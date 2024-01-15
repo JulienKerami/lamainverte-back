@@ -5,7 +5,8 @@ const Zone = require('./zone.model');
 /**** User <> Zone One-to-Many ****/
 
 User.hasMany(Zone, {
-  as: 'zone'
+  as: 'zone',
+  foreignKey: 'user_id'
 }),
 
 Zone.belongsTo(User, {
