@@ -1,5 +1,6 @@
 const { User } = require('../models/index.model');
 const emailValidator = require("email-validator");
+const bcrypt = require('bcrypt');
 
 // Fonction qui crée un user à partir des données envoyées en front
 async function createUser(req, res) {
@@ -9,7 +10,6 @@ async function createUser(req, res) {
 
     // Gérer les erreurs possibles avec des if : contrôle de firstname qui est une sstring, lastname aussi, vérifier qu'il y a bien les 2 informations not null     (missing)
     
-
     
     // Vérifier que le password est bien une string
     // Vérifier que l'email n'est pas déjà utilisé
@@ -24,6 +24,7 @@ async function createUser(req, res) {
     // Vérifier que l'email est bien validé
     if(!emailValidator.validate(email)){
       res.status(400).json({message: "Email is not valid"});
+      return;
     }
 
     
@@ -39,13 +40,15 @@ async function createUser(req, res) {
       return;
     }
 
+    // on hash le mot de passe
+    const encryptedPassword = await bcrypt.hash(password, 10);
 
-   
+    // on inscrit l'utilisateur en base de données
     const user = await User.create({
       first_name: firstname,
       last_name: lastname,
       email: email,
-      password: password
+      password: encryptedPassword
     });
     res.status(200).json(user);
     
