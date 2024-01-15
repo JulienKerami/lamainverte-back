@@ -1,18 +1,29 @@
 const { User } = require('../models/index.model');
 
-const userController = {
+// Fonction qui crée un user à partir des données envoyées en front
+async function createUser(_, res) {
+  const userTest = {
+    firstname: "Julo",
+    lastname: "le jardinier",
+    email: "potager@yahoo.fr",
+    password: "courgette"
+  };
+  // Gérer les erreurs possibles avec des if : contrôle de firstname qui est une sstring, lastname aussi, vérifier qu'il y a bien les 4 informations (missing)
+  const user = await User.create({
+    first_name: userTest.firstname,
+    last_name: userTest.lastname,
+    email: userTest.email,
+    password: userTest.password
+  });
+  res.status(200).json(user);
+}
 
-  loginPage(_, res) {
 
-    res.send("Login page");
-  },
+function userPage(_, res) {
+  res.send("Page user");
+}
 
-  registerPage(_, res) {
-
-    res.send("Register page");
-  }
-
-
+module.exports = {
+  createUser,
+  userPage
 };
-
-module.exports = userController;

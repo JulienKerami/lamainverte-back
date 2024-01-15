@@ -15,14 +15,14 @@ User.init({
     allowNull: false
   },
 
-  firstname: {
+  first_name: {
     type: DataTypes.TEXT,
-    allowNull: false
+    allowNull: true
   },
 
-  lastname: {
+  last_name: {
     type: DataTypes.TEXT,
-    allowNull: false
+    allowNull: true
   },
 
 }, {
