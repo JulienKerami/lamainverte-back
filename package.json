@@ -7,7 +7,9 @@
     "test": "nodemon index.js",
     "connect_bdd": "psql -U administrateurlamainverte -d lamainverte -h localhost",
     "create_tables": "psql -U administrateurlamainverte -d lamainverte -f data/create_tables.sql -h localhost",
-    "create_seeding" : "psql -U administrateurlamainverte -d lamainverte -f data/seeding.sql -h localhost"
+    "create_seeding" : "psql -U administrateurlamainverte -d lamainverte -f data/seeding.sql -h localhost",
+    "start": "node index.js",
+    "dbreset" : "npm run create_tables && npm run create_seeding"
   },
   "repository": {
     "type": "git",
