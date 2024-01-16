@@ -4,7 +4,12 @@
   "description": "Projet la main verte - back API ",
   "main": "index.js",
   "scripts": {
-    "test": "npm run dev"
+    "test": "nodemon index.js",
+    "connect_bdd": "psql -U administrateurlamainverte -d lamainverte -h localhost",
+    "create_tables": "psql -U administrateurlamainverte -d lamainverte -f data/create_tables.sql -h localhost",
+    "create_seeding" : "psql -U administrateurlamainverte -d lamainverte -f data/seeding.sql -h localhost",
+    "start": "node index.js",
+    "dbreset" : "npm run create_tables && npm run create_seeding"
   },
   "repository": {
     "type": "git",
@@ -15,5 +20,17 @@
   "bugs": {
     "url": "https://github.com/O-clock-Empanadas/projet-02-la-main-verte-back/issues"
   },
-  "homepage": "https://github.com/O-clock-Empanadas/projet-02-la-main-verte-back#readme"
+  "homepage": "https://github.com/O-clock-Empanadas/projet-02-la-main-verte-back#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.3.1",
+    "email-validator": "^2.0.4",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.0.2",
+    "pg": "^8.11.3",
+    "sanitize-html": "^2.11.0",
+    "sequelize": "^6.35.2"
+  }
 }
