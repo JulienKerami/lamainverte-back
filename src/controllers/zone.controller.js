@@ -3,9 +3,8 @@ const { Zone } = require('../models/index.model');
 
 async function getAllZones(req, res) {
 
-  const userId = 2; // TODO: pour faire des essais, à voir comment on récupère l'id de l'utilisateur connecté
-
   try {
+    const userId = parseInt(req.params.userId);
     const zones = await Zone.findAll({ where: { user_id: userId } });
     res.status(200).json(zones);
 
@@ -18,7 +17,8 @@ async function getAllZones(req, res) {
 async function createZone(req, res) {
 
   try {
-    const {name, userId} = req.body;
+    const userId = parseInt(req.params.userId);
+    const {name} = req.body;
 
     const zone = await Zone.create({
       name: name,
@@ -35,6 +35,7 @@ async function createZone(req, res) {
 
 async function getOneZone(req, res) {
   try {
+    
     const zoneId = parseInt(req.params.zoneId);
 
     const zone = await Zone.findByPk(zoneId);
@@ -51,7 +52,23 @@ async function deleteZone(req, res) {
     const zone = await Zone.findByPk(zoneId);
     await zone.destroy();
 
-    res.status(200).json({ message: `zone ${zoneId} deleted` });
+    res.status(204).end();
+  } catch (error) {
+    res.status(500).json(error);
+  }
+
+}
+
+async function updateZone(req, res) {
+  try {
+    const zoneId = parseInt(req.params.zoneId);
+    const {name}=req.body;
+
+    const zone = await Zone.findByPk(zoneId);
+
+    await zone.update({name : name});
+
+    res.status(200).json(zone);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -60,11 +77,11 @@ async function deleteZone(req, res) {
 
 
 
-
 module.exports = {
   getAllZones,
   createZone,
   getOneZone,
-  deleteZone
+  deleteZone,
+  updateZone
 
 };
