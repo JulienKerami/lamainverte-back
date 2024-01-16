@@ -9,7 +9,8 @@
     "create_tables": "psql -U administrateurlamainverte -d lamainverte -f data/create_tables.sql -h localhost",
     "create_seeding" : "psql -U administrateurlamainverte -d lamainverte -f data/seeding.sql -h localhost",
     "start": "node index.js",
-    "dbreset" : "npm run create_tables && npm run create_seeding"
+    "dbreset" : "npm run create_tables && npm run create_seeding",
+    "render_connect" : "psql -h dpg-cmjb3vgcmk4c739nkllg-a.frankfurt-postgres.render.com -U administrateurlamainverte lamainverte"
   },
   "repository": {
     "type": "git",
