@@ -13,7 +13,7 @@ async function createUser(req, res) {
     // Vérifier que le password est bien une string
     // Vérifier que le password fait au moins 8 caractères
 
-
+    console.log("test");
 
     // Vérifier que les 2 champs email et password obligatoires sont bien présents
     if(!email || !password) {
@@ -91,7 +91,7 @@ async function loginUser(req, res) {
     }
     
     // Générer un token pour l'utilisateur
-    const token = jwt.sign({ id: user.id }, `${process.env.SECRET_KEY}`, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user.id, lastname: user.last_name  }, `${process.env.SECRET_KEY}`, { expiresIn: '1h' });
 
     // Si tout est ok, on renvoie l'utilisateur
     res.status(200).json({ user: user, token: token });

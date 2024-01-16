@@ -3,6 +3,7 @@ require("dotenv/config");
 
 // Import des modules
 const express = require("express"); // module express classique
+const cors = require('cors');
 const { rateLimit } = require("express-rate-limit"); // module express pour éviter les DDOS
 // const cors = require("cors"); // Sécurité avec le module CORS TODO
 
@@ -11,8 +12,14 @@ const sanitizeHtml = require("sanitize-html"); // SECURITE doc : https://www.npm
 const router = require("./src/routers");
 
 
+
 // Creation app Express
 const app = express();
+
+app.use(cors({ // Ce middleware ajoute un header "Access-Control-Allow-Origin: "...." à la réponse que Express renvoie au client !
+  origin: "*", // Ici, pour ne pas s'embêter, et parce qu'on a pas de donner sensible, je vous propose d'autoriser TOUS les domaines à accéder à notre API. Techniquement, il faudrait juste autoriser notre front ! 
+}));
+
 
 // middleware rate limiting
 const limiter = rateLimit({
