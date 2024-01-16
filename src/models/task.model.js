@@ -27,7 +27,7 @@ Task.init({
     comment : {
         type: DataTypes.TEXT,
         allowNull: true
-    },
+    }
 }, {
         sequelize,
         tableName: 'task'
