@@ -33,9 +33,38 @@ async function createZone(req, res) {
   }
 }
 
+async function getOneZone(req, res) {
+  try {
+    const zoneId = parseInt(req.params.zoneId);
+
+    const zone = await Zone.findByPk(zoneId);
+    res.status(200).json(zone);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+async function deleteZone(req, res) {
+  try {
+    const zoneId = parseInt(req.params.zoneId);
+
+    const zone = await Zone.findByPk(zoneId);
+    await zone.destroy();
+
+    res.status(200).json({ message: `zone ${zoneId} deleted` });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+
+}
+
+
 
 
 module.exports = {
   getAllZones,
-  createZone
+  createZone,
+  getOneZone,
+  deleteZone
+
 };
