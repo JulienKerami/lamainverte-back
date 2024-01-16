@@ -6,7 +6,8 @@
   "scripts": {
     "test": "nodemon index.js",
     "connect_bdd": "psql -U administrateurlamainverte -d lamainverte -h localhost",
-    "create_tables": "psql -U administrateurlamainverte -d lamainverte -f data/create_tables.sql -h localhost"
+    "create_tables": "psql -U administrateurlamainverte -d lamainverte -f data/create_tables.sql -h localhost",
+    "create_seeding" : "psql -U administrateurlamainverte -d lamainverte -f data/seeding.sql -h localhost"
   },
   "repository": {
     "type": "git",

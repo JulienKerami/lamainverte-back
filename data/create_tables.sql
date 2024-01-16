@@ -36,9 +36,7 @@ CREATE TABLE IF NOT EXISTS "family" (
     "start_date_day_harvest" INTEGER NOT NULL,
     "start_date_month_harvest" INTEGER NOT NULL,
     "end_date_day_harvest" INTEGER NOT NULL,
-    "end_date_month_harvest" INTEGER NOT NULL,
-    "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP,
+    "end_date_month_harvest" INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS "vegetable" (
@@ -46,10 +44,8 @@ CREATE TABLE IF NOT EXISTS "vegetable" (
     "growth_time" INTEGER NOT NULL,
     "variety" TEXT,
     "comment" TEXT,
-    "zone_id" INTEGER NOT NULL,
-    "family_id" INTEGER NOT NULL,
-    "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP,
+    "zone_id" INTEGER,
+    "family_id" INTEGER,
     FOREIGN KEY ("zone_id") REFERENCES "zone" ("id"),
     FOREIGN KEY ("family_id") REFERENCES "family" ("id")
 );
@@ -62,9 +58,7 @@ CREATE TABLE IF NOT EXISTS "task" (
     "end_date_period" DATE,
     "effective_date" DATE,
     "comment" TEXT,
-    "vegetable_id" INTEGER NOT NULL,
-    "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP,
+    "vegetable_id" INTEGER,
     FOREIGN KEY ("vegetable_id") REFERENCES "vegetable" ("id")
 );
 

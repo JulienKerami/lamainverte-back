@@ -27,7 +27,12 @@ Task.init({
     comment : {
         type: DataTypes.TEXT,
         allowNull: true
-    }
+    },
+
+    vegetable_id : {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
 }, {
         sequelize,
         tableName: 'task'
