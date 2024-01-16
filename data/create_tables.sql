@@ -59,6 +59,8 @@ CREATE TABLE IF NOT EXISTS "task" (
     "effective_date" DATE,
     "comment" TEXT,
     "vegetable_id" INTEGER,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP,
     FOREIGN KEY ("vegetable_id") REFERENCES "vegetable" ("id")
 );
 

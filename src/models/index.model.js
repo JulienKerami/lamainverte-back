@@ -1,5 +1,7 @@
 const User = require('./user.model');
 const Zone = require('./zone.model');
+const Task = require('./task.model');
+const Vegetable = require('./vegetable.model');
 
 
 /**** User <> Zone One-to-Many ****/
@@ -13,4 +15,8 @@ Zone.belongsTo(User, {
   foreignKey: 'user_id'
 });
 
-module.exports = {User, Zone};
+
+/**** Task <> Vegetables One-to-Many */
+
+
+module.exports = {User, Zone, Task, Vegetable};
