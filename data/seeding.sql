@@ -1,4 +1,3 @@
--- BEGIN;
 
 -- CREATION DE 2 USERS
 
@@ -51,7 +50,7 @@ VALUES ('Ail dautomne', 'Bulbe', 'Fertile, bien drainé', '1 fois/semaine', '1 f
 ('Radis', 'Racine', 'Léger et frais', '2-3 fois/semaine', '1 fois/semaine', NULL, '1 cm', '3 cm', '15 cm', 'Ensoleillée', NULL, NULL, NULL, NULL, '1', '3', '15', '9', '1', '4', '15', '10'),
 ('Salade / laitue', 'Feuille', 'Riche et frais', '2-3 fois/semaine', '1-2 fois/semaine', NULL, '0.5 cm', '30 cm', '30 cm', 'Ensoleillée/Mi-ombre', NULL, NULL, NULL, NULL, '1', '2', '15', '9', '1', '3', '30', '11'),
 ('Tomate', 'Fruit', 'Riche et bien drainé', '1-2 fois/semaine', '2-3 fois/mois', NULL, '1 cm', '50 cm', '100 cm', 'Ensoleillée', '1', '2', '15', '4', '15', '3', '1', '5', '15', '6', '31', '10');
--- COMMIT;
+
 
 
 -- CREATION DE VEGETABLES
@@ -62,3 +61,4 @@ VALUES (90, 'Blanc', 'Bulbe donné par mamie', 1, 1),
 (20, 'Batavia', 'Pas de produit anti limace', 3, 26);
 
 -- CREATION DE TACHES
+
