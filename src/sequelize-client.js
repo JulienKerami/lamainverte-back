@@ -14,11 +14,11 @@ const sequelize = new Sequelize(process.env.DB_URL, {
 
 module.exports = sequelize;
 
-// Pour tester temporairement --> Test réussi le 12/01/2024
+//Pour tester temporairement --> Test réussi le 12/01/2024
 
 // sequelize.authenticate()
 //   .then(() => { console.log("success !"); })
 //   .catch(error => console.error(error));
 
-// Puis lancer "node ./src/models/sequelize-client.js"
+//Puis lancer "node ./src/models/sequelize-client.js"
 

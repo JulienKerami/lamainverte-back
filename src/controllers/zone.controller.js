@@ -1,28 +1,15 @@
 //const { User } = require('../models/index.model');
 const { Zone } = require('../models/index.model');
 
-async function getAllZones(req, res) {
-
-  try {
-    const userId = parseInt(req.params.userId);
-    const zones = await Zone.findAll({ where: { user_id: userId } });
-    res.status(200).json(zones);
-
-  } catch (error) {
-    res.status(500).json(error);
-  }
-}
-
-
 async function createZone(req, res) {
 
   try {
-    const userId = parseInt(req.params.userId);
-    const {name} = req.body;
+    const {name, userId} = req.body; // TODO : Vérifier comment arrive le userId
+    console.log(req.body);
 
     const zone = await Zone.create({
-      name: name,
-      user_id: userId
+      user_id: userId,
+      name: name     
     
     });
 
@@ -33,17 +20,6 @@ async function createZone(req, res) {
   }
 }
 
-async function getOneZone(req, res) {
-  try {
-    
-    const zoneId = parseInt(req.params.zoneId);
-
-    const zone = await Zone.findByPk(zoneId);
-    res.status(200).json(zone);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-}
 
 async function deleteZone(req, res) {
   try {
@@ -62,6 +38,7 @@ async function deleteZone(req, res) {
 async function updateZone(req, res) {
   try {
     const zoneId = parseInt(req.params.zoneId);
+
     const {name}=req.body;
 
     const zone = await Zone.findByPk(zoneId);
@@ -78,9 +55,7 @@ async function updateZone(req, res) {
 
 
 module.exports = {
-  getAllZones,
   createZone,
-  getOneZone,
   deleteZone,
   updateZone
 
