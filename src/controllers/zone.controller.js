@@ -1,4 +1,5 @@
 const { Zone } = require('../models/index.model');
+const { Vegetable } = require('../models/index.model');
 
 async function createZone(req, res) {
 
@@ -24,15 +25,26 @@ async function deleteZone(req, res) {
   try {
     const zoneId = parseInt(req.params.zoneId);
 
-    const zone = await Zone.findByPk(zoneId);
-    await zone.destroy();
+    // Recherche et suppression des Vegetables associés en premier
+    await Vegetable.destroy({
+      where: {
+        zone_id: zoneId,
+      },
+    });
+
+    // Vous pouvez maintenant supprimer en toute sécurité la Zone
+    await Zone.destroy({
+      where: {
+        id: zoneId,
+      },
+    });
 
     res.status(204).end();
   } catch (error) {
     res.status(500).json(error);
   }
-
 }
+
 
 async function updateZone(req, res) {
   try {

@@ -91,7 +91,7 @@ async function loginUser(req, res) {
     }
     
     // Générer un token pour l'utilisateur
-    const token = jwt.sign({ id: user.id }, `${process.env.SECRET_KEY}`, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user.id }, `${process.env.SECRET_KEY}`, { expiresIn: '9000h' });
 
     // Si tout est ok, on renvoie l'utilisateur
     res.status(200).json({ user: user, token: token });
