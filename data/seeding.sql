@@ -21,6 +21,7 @@ INSERT INTO "zone" ("name", "user_id")
 VALUES ('Potager', 2);
 
 
+
 -- CREATION DE FAMILLES
 INSERT INTO "family" ("name", "vegetable_type" , "soil_type", "watering", "weeding", "emergence", "depth", "spacing", "row_spacing", "exposure", "start_date_day_seeding", "start_date_month_seeding", "end_date_day_seeding", "end_date_month_seeding", "start_date_day_planting", "start_date_month_planting", "end_date_day_planting", "end_date_month_planting", "start_date_day_harvest", "start_date_month_harvest", "end_date_day_harvest", "end_date_month_harvest")
 VALUES ('Ail dautomne', 'Bulbe', 'Fertile, bien drainé', '1 fois/semaine', '1 fois / mois', NULL, '2-3 cm', '15 cm', '30 cm', 'Ensoleillée', NULL, NULL, NULL, NULL, '1', '10', '30', '11', '1', '5', '31', '7'),
@@ -61,4 +62,6 @@ VALUES (90, 'Blanc', 'Bulbe donné par mamie', 1, 1),
 (20, 'Batavia', 'Pas de produit anti limace', 3, 26);
 
 -- CREATION DE TACHES
+
+
 

@@ -1,4 +1,3 @@
-//const { User } = require('../models/index.model');
 const { Zone } = require('../models/index.model');
 
 async function createZone(req, res) {
