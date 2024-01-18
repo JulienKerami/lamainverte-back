@@ -27,6 +27,7 @@ Vegetable.belongsTo(Family, {
   foreignKey: 'family_id'
 });
 
+
 /**** Zone <> Vegetables One-to-Many */
 
 Zone.hasMany(Vegetable, {
@@ -36,18 +37,23 @@ Zone.hasMany(Vegetable, {
 }),
 
 Vegetable.belongsTo(Zone, { 
-  foreignKey: 'zone_id'
+  foreignKey: 'zone_id',
+  onDelete: 'CASCADE'
 });
+
 
 /**** Vegetable <> task One-to-Many */
 Vegetable.hasMany(Task, {
   as: 'task',
-  foreignKey: 'vegetable_id'
+  foreignKey: 'vegetable_id',
+  onDelete: 'CASCADE'
 }),
 
 Task.belongsTo(Vegetable, { 
-  foreignKey: 'vegetable_id'
+  foreignKey: 'vegetable_id',
+  onDelete: 'CASCADE'
 });
+
 
 
 
