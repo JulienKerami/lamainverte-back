@@ -31,7 +31,8 @@ Vegetable.belongsTo(Family, {
 
 Zone.hasMany(Vegetable, {
   as: 'vegetable',
-  foreignKey: 'zone_id'
+  foreignKey: 'zone_id',
+  onDelete: 'CASCADE'
 }),
 
 Vegetable.belongsTo(Zone, { 
