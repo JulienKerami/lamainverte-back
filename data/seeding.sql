@@ -22,5 +22,10 @@ INSERT INTO "zone" ("name", "user_id")
 VALUES ('Potager', 2);
 
 
+INSERT INTO "vegetable" ("growth_time", "variety", "comment", "zone_id", "family_id")
+VALUES (30, 'Tomate', 'Tomate cerise',"très bonne" 1, 1);
+
+
+
 
 -- COMMIT;
