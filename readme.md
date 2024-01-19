@@ -12,3 +12,7 @@ Ce dépôt contient le code source du backend de l'application de suivi des tâc
 - **Express.js :** Framework web pour Node.js, facilitant la création d'API RESTful.
 - **PostgreSQL :** Système de gestion de base de données relationnelle
 
+## Installation
+- cloner le projet
+- installer les dépendances `npm install`
+- créer le fichier .env  partir du .env.example
