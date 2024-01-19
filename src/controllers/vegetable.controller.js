@@ -159,16 +159,21 @@ async function createVegetable(req, res) {
         const seedingTask = await Task.create({
           type : "seeding",
           status : "A faire",
+          code_status : 1,
           start_date_period : start_date_period_seeding,// TODO A FAIRE
           end_date_period : end_date_period_seeding,// TODO A FAIRE
           vegetable_id : vegetable.id
         });
       }
 
+      // TODO  : Vérifier status a mettre A faire si pas de seeding
+
+
     // créer une tâche une tâche planting
     const plantingTask = await Task.create({
       type : "planting",
-      status : "A faire",
+      status : "En attente",
+      code_status : 0,
       start_date_period : start_date_period_planting,// TODO A FAIRE
       end_date_period : end_date_period_planting,// TODO A FAIRE
       vegetable_id : vegetable.id
@@ -177,7 +182,8 @@ async function createVegetable(req, res) {
     // créer une tâche de harvest
     const harvestTask = await Task.create({
       type : "harvest",
-      status : "A faire",
+      status : "En attente",
+      code_status : 0,
       start_date_period : start_date_period_harvest,// TODO A FAIRE
       end_date_period : end_date_period_harvest,// TODO A FAIRE
       vegetable_id : vegetable.id
