@@ -35,9 +35,9 @@ VALUES (90, 'Blanc', 'Bulbe donné par mamie', 1, 1),
 INSERT INTO "task" (
     "type", "status", "start_date_period", "end_date_period", "effective_date", "comment", "vegetable_id"
 ) VALUES
-    ('Semis', true, '2024-01-15', '2024-03-15', '2024-01-15', 'semis', 1),
-    ('Plantation', false, '2024-04-01', '2024-06-30', '2024-04-01', 'plantation', 1),
-    ('Récolte', false, '2024-04-01', '2024-06-30', '2024-04-01', 'recolte', 1);
+    ('Semis', 'à faire', '2024-01-15', '2024-03-15', '2024-01-15', 'semis', 1),
+    ('Plantation', 'à faire', '2024-04-01', '2024-06-30', '2024-04-01', 'plantation', 1),
+    ('Récolte', 'à faire', '2024-04-01', '2024-06-30', '2024-04-01', 'recolte', 1);
 
 COMMIT;
 

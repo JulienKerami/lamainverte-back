@@ -42,10 +42,69 @@ async function createVegetable(req, res) {
     const userId = getUserIdFromToken(req.headers.authorization);
 
     // Récupérer les données envoyées par l'utilisateur
-    const {zoneId, familyId, growthTime, variety, comment, start_date_period_planting, end_date_period_planting} = req.body;
+    const {zoneId, familyId, growthTime, variety, comment, 
+      start_date_period_seeding, end_date_period_seeding,
+      start_date_period_planting, end_date_period_planting,
+      start_date_period_harvest, end_date_period_harvest} = req.body;
 
+      // format attendu sur la date : 2024-01-31
 
-    // vérifier les dates que va nous envoyer le front
+    //   // converti les dates en format date
+    //   const start_date_period_seeding_date = new Date(start_date_period_seeding);
+    //   const end_date_period_seeding_date = new Date(end_date_period_seeding);
+    //   const start_date_period_planting_date = new Date(start_date_period_planting);
+    //   const end_date_period_planting_date = new Date(end_date_period_planting);
+    //   const start_date_period_harvest_date = new Date(start_date_period_harvest);
+    //   const end_date_period_harvest_date = new Date(end_date_period_harvest);
+      
+
+    //         // Fais un console log de toutes les dates avec leur nom et leur type
+    //         console.log("start_date_period_seeding", start_date_period_seeding_date, typeof start_date_period_seeding_date);
+    //         console.log("end_date_period_seeding", end_date_period_seeding_date, typeof end_date_period_seeding_date);
+    //         console.log("start_date_period_planting", start_date_period_planting_date, typeof start_date_period_planting_date);
+    //         console.log("end_date_period_planting", end_date_period_planting_date, typeof end_date_period_planting_date);
+    //         console.log("start_date_period_harvest", start_date_period_harvest_date, typeof start_date_period_harvest_date);
+    //         console.log("end_date_period_harvest", end_date_period_harvest_date, typeof end_date_period_harvest_date);
+      
+
+    // // vérifier que les dates sont au format date 2024-01-31 
+
+    // if(start_date_period_seeding_date && start_date_period_seeding_date instanceof Date) {
+    //   res.status(400).json({message: "Start date period seeding must be a date"});
+    //   return;
+    // }
+
+    // if(end_date_period_seeding && typeof end_date_period_seeding_date !== "date") {
+    //   res.status(400).json({message: "End date period seeding must be a date"});
+    //   return;
+    // }
+
+    // if(start_date_period_planting && typeof start_date_period_planting_date !== "date") {
+    //   res.status(400).json({message: "Start date period planting must be a date"});
+    //   return;
+    // }
+
+    // if(end_date_period_planting && typeof end_date_period_planting_date !== "date") {
+    //   res.status(400).json({message: "End date period planting must be a date"});
+    //   return;
+    // }
+
+    // if(start_date_period_harvest && typeof start_date_period_harvest_date !== "date") {
+    //   res.status(400).json({message: "Start date period harvest must be a date"});
+    //   return;
+    // }
+
+    // if(end_date_period_harvest && typeof end_date_period_harvest_date !== "date") {
+    //   res.status(400).json({message: "End date period harvest must be a date"});
+    //   return;
+    // }
+
+    // vérifier que  start_date_period_planting, end_date_period_planting,     start_date_period_harvest, end_date_period_harvest sont fournies
+
+    if(!start_date_period_planting || !end_date_period_planting || !start_date_period_harvest || !end_date_period_harvest) {
+      res.status(400).json({message: "Start date period planting, end date period planting, start date period harvest and end date period harvest must be provided"});
+      return;
+    }
 
     // vérifier s'il y a une variety, que c'est une string
     if(variety && typeof variety !== "string") {
@@ -89,9 +148,22 @@ async function createVegetable(req, res) {
 
     // création des tâches liées au plant
 
-    // vérifier que la famille du plant a une période de semi (start_date_day_seeding n'est pas NULL)
+    // vérifier que le front envoie une date de seeding
     
     // si oui, créer une tâche de seeding
+
+
+      // créer une tâche de seeding
+
+      if(start_date_period_seeding && end_date_period_seeding) {
+        const seedingTask = await Task.create({
+          type : "seeding",
+          status : "A faire",
+          start_date_period : start_date_period_seeding,// TODO A FAIRE
+          end_date_period : end_date_period_seeding,// TODO A FAIRE
+          vegetable_id : vegetable.id
+        });
+      }
 
     // créer une tâche une tâche planting
     const plantingTask = await Task.create({
@@ -99,14 +171,20 @@ async function createVegetable(req, res) {
       status : "A faire",
       start_date_period : start_date_period_planting,// TODO A FAIRE
       end_date_period : end_date_period_planting,// TODO A FAIRE
-      effective_date : null,
-      comment : null,
       vegetable_id : vegetable.id
     });  
 
     // créer une tâche de harvest
+    const harvestTask = await Task.create({
+      type : "harvest",
+      status : "A faire",
+      start_date_period : start_date_period_harvest,// TODO A FAIRE
+      end_date_period : end_date_period_harvest,// TODO A FAIRE
+      vegetable_id : vegetable.id
+    });
+
   
-    res.status(200).json({vegetable, plantingTask});
+    res.status(200).json({message : "Vegetable created"});
     
   } catch (error) {
     res.status(500).json(error);
