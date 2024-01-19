@@ -12,6 +12,12 @@ Task.init({
     type: DataTypes.TEXT,
     allowNull: false
   },
+
+  status_code : {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  
   start_date_period : {
     type: DataTypes.DATE,
     allowNull: true
