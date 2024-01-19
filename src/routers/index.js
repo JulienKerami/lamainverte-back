@@ -5,6 +5,7 @@ const userRouter = require("./user.router");
 const zoneRouter = require("./zone.routeur");
 const vegetableRouter = require("./vegetable.routeur");
 const taskRouter = require("./task.routeur");
+const familyRouter = require("./family.router");
 
 const verifyToken  = require("../middlewares/verify");
 
@@ -20,6 +21,7 @@ router.use(verifyToken);
 
 router.use(zoneRouter);
 router.use(vegetableRouter);
+router.use(familyRouter);
 router.use(taskRouter);
 
 
