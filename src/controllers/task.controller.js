@@ -26,6 +26,17 @@ async function getOneTask(req, res) {
   }
 }
 
+// Update task
+
+// Quand on click sur un tache et que l'utilisateur coche "fait" 
+// -> Mettre la date effective
+// -> Mettre le statut : "fait"
+// -> Mettre le statut code correspondant,
+// -> Mettre un commentaire facultatif
+// -> Si le type est seeding, recherche la tache planting ayant le même vegetable id et on lui change son statut en "à faire" (+ statut code correspondant)
+// -> Si le type est planting, recherche la tache harvesting ayant le même vegetable id et on lui change son statut en "à faire" (+ statut code correspondant)
+// -> Si le type est harvesting, toutes les tâches sont ok
+
 
 module.exports = {
   getAllTasks,
