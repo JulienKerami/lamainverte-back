@@ -47,64 +47,30 @@ async function createVegetable(req, res) {
       start_date_period_planting, end_date_period_planting,
       start_date_period_harvest, end_date_period_harvest} = req.body;
 
-    // format attendu sur la date : 2024-01-31
-
-    //   // converti les dates en format date
-    //   const start_date_period_seeding_date = new Date(start_date_period_seeding);
-    //   const end_date_period_seeding_date = new Date(end_date_period_seeding);
-    //   const start_date_period_planting_date = new Date(start_date_period_planting);
-    //   const end_date_period_planting_date = new Date(end_date_period_planting);
-    //   const start_date_period_harvest_date = new Date(start_date_period_harvest);
-    //   const end_date_period_harvest_date = new Date(end_date_period_harvest);
       
-
-    //         // Fais un console log de toutes les dates avec leur nom et leur type
-    //         console.log("start_date_period_seeding", start_date_period_seeding_date, typeof start_date_period_seeding_date);
-    //         console.log("end_date_period_seeding", end_date_period_seeding_date, typeof end_date_period_seeding_date);
-    //         console.log("start_date_period_planting", start_date_period_planting_date, typeof start_date_period_planting_date);
-    //         console.log("end_date_period_planting", end_date_period_planting_date, typeof end_date_period_planting_date);
-    //         console.log("start_date_period_harvest", start_date_period_harvest_date, typeof start_date_period_harvest_date);
-    //         console.log("end_date_period_harvest", end_date_period_harvest_date, typeof end_date_period_harvest_date);
-      
-
-    // // vérifier que les dates sont au format date 2024-01-31 
-
-    // if(start_date_period_seeding_date && start_date_period_seeding_date instanceof Date) {
-    //   res.status(400).json({message: "Start date period seeding must be a date"});
-    //   return;
-    // }
-
-    // if(end_date_period_seeding && typeof end_date_period_seeding_date !== "date") {
-    //   res.status(400).json({message: "End date period seeding must be a date"});
-    //   return;
-    // }
-
-    // if(start_date_period_planting && typeof start_date_period_planting_date !== "date") {
-    //   res.status(400).json({message: "Start date period planting must be a date"});
-    //   return;
-    // }
-
-    // if(end_date_period_planting && typeof end_date_period_planting_date !== "date") {
-    //   res.status(400).json({message: "End date period planting must be a date"});
-    //   return;
-    // }
-
-    // if(start_date_period_harvest && typeof start_date_period_harvest_date !== "date") {
-    //   res.status(400).json({message: "Start date period harvest must be a date"});
-    //   return;
-    // }
-
-    // if(end_date_period_harvest && typeof end_date_period_harvest_date !== "date") {
-    //   res.status(400).json({message: "End date period harvest must be a date"});
-    //   return;
-    // }
-
     // vérifier que  start_date_period_planting, end_date_period_planting,     start_date_period_harvest, end_date_period_harvest sont fournies
 
     if(!start_date_period_planting || !end_date_period_planting || !start_date_period_harvest || !end_date_period_harvest) {
       res.status(400).json({message: "Start date period planting, end date period planting, start date period harvest and end date period harvest must be provided"});
       return;
     }
+
+
+    // Transformation des dates fournies en format string en objet Date
+    const start_date_period_seeding_date = new Date(start_date_period_seeding);
+    const end_date_period_seeding_date = new Date(end_date_period_seeding);
+    // TODO : finir les autres dates, en attente du front
+    
+    
+
+    // vérifier que les dates sont bien des dates
+      
+    if (!(start_date_period_seeding_date instanceof Date && start_date_period_seeding_date instanceof Date) ) {
+      res.status(400).json({ message: "Start date period seeding must be a date" });
+      return;
+    }
+
+    // TODO : finir les autres dates, en attente du front
 
     // vérifier s'il y a une variety, que c'est une string
     if(variety && typeof variety !== "string") {
@@ -153,8 +119,8 @@ async function createVegetable(req, res) {
         type : "seeding",
         status : "A faire",
         status_code : 1,
-        start_date_period : start_date_period_seeding,
-        end_date_period : end_date_period_seeding,
+        start_date_period : start_date_period_seeding_date,
+        end_date_period : end_date_period_seeding_date,
         vegetable_id : vegetable.id
       });
     }

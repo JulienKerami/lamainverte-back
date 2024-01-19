@@ -27,8 +27,8 @@ VALUES ('Potager', 2);
 INSERT INTO "vegetable" ("growth_time", "variety", "comment", "zone_id", "family_id")
 VALUES (90, 'Blanc', 'Bulbe donné par mamie', 1, 1),
 (90, 'Violet', NULL, 1, 1),
-(40, 'Bonbon de Bréel', 'Variété ancienne', 2, 2),
-(20, 'Batavia', 'Pas de produit anti limace', 3, 3);
+(40, 'Bonbon de Bréel', 'Variété ancienne', 2, 27),
+(20, 'Batavia', 'Pas de produit anti limace', 3, 26);
 
 
 -- Tâches
