@@ -1,44 +1,38 @@
-const { Vegetable, Zone } = require('../models/index.model');
+const { Vegetable, Zone, User, Task } = require('../models/index.model');
 
 
 const { getUserIdFromToken } = require('./utils');
 
 
-async function getAllVegetables(req, res) {
+async function getZonesVegetablesTasks(req, res)  {
 
+  const userId = getUserIdFromToken(req.headers.authorization);
+
+  //const userId = 1;
   try {
-    const userId = getUserIdFromToken(req.headers.authorization);
-    
-
-    // Récupérer toutes les zones de l'utilisateur connecté
-    const zones = await Zone.findAll({
-      where: {
-        user_id: userId,
-      },
-    });
-
-    // Récupérer les id des zones de l'utilisateur connecté
-    const zoneIds = zones.map(zone => zone.dataValues.id);
-    
-   
-
-    // Récupérer les légumes des zones de l'utilisateur connecté
-    const vegetables = await Vegetable.findAll(
-      {
-        where: {
-          zone_id: zoneIds
+    const zones = await User.findByPk(userId, {
+      include: {
+        model: Zone,
+        as: 'zone',
+        include: {
+          model: Vegetable,
+          as: 'vegetable',
+          include: { 
+            model: Task,
+            as: "task",
+          }
         }
       }
-    );
-
-    console.log(vegetables);
-  
-    res.status(200).json(vegetables);
-
-  } catch (error) {
-    res.status(500).json(error);
+    });
+    console.log(zones);
+    res.status(200).json(zones);
   }
+
+  catch(error) 
+  {res.status(400).json(error);}
+ 
 }
+
 
 async function createVegetable(req, res) {
   
@@ -68,8 +62,7 @@ async function createVegetable(req, res) {
 }
 
 
-
 module.exports =  {
-  getAllVegetables, 
-  createVegetable
+  createVegetable,
+  getZonesVegetablesTasks
 };
