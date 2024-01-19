@@ -47,7 +47,7 @@ async function createVegetable(req, res) {
       start_date_period_planting, end_date_period_planting,
       start_date_period_harvest, end_date_period_harvest} = req.body;
 
-      // format attendu sur la date : 2024-01-31
+    // format attendu sur la date : 2024-01-31
 
     //   // converti les dates en format date
     //   const start_date_period_seeding_date = new Date(start_date_period_seeding);
@@ -146,47 +146,40 @@ async function createVegetable(req, res) {
       comment: comment,
     });
 
-    // création des tâches liées au plant
 
-    // vérifier que le front envoie une date de seeding
-    
-    // si oui, créer une tâche de seeding
-
-
-      // créer une tâche de seeding
-
-      if(start_date_period_seeding && end_date_period_seeding) {
-        const seedingTask = await Task.create({
-          type : "seeding",
-          status : "A faire",
-          code_status : 1,
-          start_date_period : start_date_period_seeding,// TODO A FAIRE
-          end_date_period : end_date_period_seeding,// TODO A FAIRE
-          vegetable_id : vegetable.id
-        });
-      }
-
-      // TODO  : Vérifier status a mettre A faire si pas de seeding
+    // vérifier que le front envoie une date de seeding, si oui, créer une tâche de seeding
+    if(start_date_period_seeding && end_date_period_seeding) {
+      await Task.create({
+        type : "seeding",
+        status : "A faire",
+        status_code : 1,
+        start_date_period : start_date_period_seeding,
+        end_date_period : end_date_period_seeding,
+        vegetable_id : vegetable.id
+      });
+    }
 
 
     // créer une tâche une tâche planting
-    const plantingTask = await Task.create({
-      type : "planting",
-      status : "En attente",
-      code_status : 0,
-      start_date_period : start_date_period_planting,// TODO A FAIRE
-      end_date_period : end_date_period_planting,// TODO A FAIRE
-      vegetable_id : vegetable.id
-    });  
+    let statusCode = start_date_period_seeding && end_date_period_seeding ? 0 : 1;
+
+    await Task.create({
+      type: "planting",
+      status: "En attente",
+      status_code: statusCode,
+      start_date_period: start_date_period_planting,
+      end_date_period: end_date_period_planting,
+      vegetable_id: vegetable.id
+    });
 
     // créer une tâche de harvest
-    const harvestTask = await Task.create({
-      type : "harvest",
-      status : "En attente",
-      code_status : 0,
-      start_date_period : start_date_period_harvest,// TODO A FAIRE
-      end_date_period : end_date_period_harvest,// TODO A FAIRE
-      vegetable_id : vegetable.id
+    await Task.create({
+      type: "harvest",
+      status: "En attente",
+      status_code: 0,
+      start_date_period: start_date_period_harvest,
+      end_date_period: end_date_period_harvest,
+      vegetable_id: vegetable.id
     });
 
   
@@ -196,10 +189,29 @@ async function createVegetable(req, res) {
     res.status(500).json(error);
   }
 }
+
+async function deleteVegetable(req, res) {
+
+  try {
+    const zoneId = parseInt(req.params.vegetableId);
+  
+    await Zone.destroy({
+      where: {
+        id: zoneId,
+      },
+    });
+
+    res.status(204).end();
+
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
  
 
 
 module.exports =  {
   createVegetable,
-  getZonesVegetablesTasks
+  getZonesVegetablesTasks,
+  deleteVegetable
 };
