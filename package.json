@@ -5,13 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "nodemon index.js",
-    "connect_bdd": "psql -U administrateurlamainverte -d lamainverte -h localhost",
-    "create_tables": "psql -U administrateurlamainverte -d lamainverte -f data/create_tables.sql -h localhost",
-
-    "create_seeding": "psql -U administrateurlamainverte -d lamainverte -f data/seeding.sql -h localhost",
     "start": "node index.js",
-    "dbreset": "npm run create_tables && npm run create_seeding",
-    "render_connect": "psql -h dpg-cmjb3vgcmk4c739nkllg-a.frankfurt-postgres.render.com -U administrateurlamainverte lamainverte"
+
+    "connect_local_bdd": "psql -U administrateurlamainverte -d lamainverte -h localhost",
+    "create_local_tables": "psql -U administrateurlamainverte -d lamainverte -f data/create_tables.sql -h localhost",
+    "create_local_family": "psql -U administrateurlamainverte -d lamainverte -f data/family.sql -h localhost",
+    "create_local_seeding": "psql -U administrateurlamainverte -d lamainverte -f data/seeding.sql -h localhost",
+    "connect_render_bdd": "psql -h dpg-cmjb3vgcmk4c739nkllg-a.frankfurt-postgres.render.com -U administrateurlamainverte lamainverte",
+    "create_render_tables": "psql -h dpg-cmjb3vgcmk4c739nkllg-a.frankfurt-postgres.render.com -U administrateurlamainverte lamainverte -f data/create_tables.sql",
+    "create_render_family": "psql -h dpg-cmjb3vgcmk4c739nkllg-a.frankfurt-postgres.render.com -U administrateurlamainverte lamainverte -f data/family.sql",
+    "create_render_seeding": "psql -h dpg-cmjb3vgcmk4c739nkllg-a.frankfurt-postgres.render.com -U administrateurlamainverte lamainverte -f data/seeding.sql",
+    "db_local_reset": "npm run create_local_tables && npm run create_local_family && npm run create_local_seeding",
+    "db_render_reset": "npm run create_render_tables && npm run create_render_family && npm run create_render_seeding"
+    
   },
   "repository": {
     "type": "git",
