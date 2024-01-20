@@ -24,11 +24,12 @@ VALUES ('Potager', 2);
 
 
 -- CREATION DE VEGETABLES
-INSERT INTO "vegetable" ("growth_time", "variety", "comment", "zone_id", "family_id")
-VALUES (90, 'Blanc', 'Bulbe donné par mamie', 1, 1),
-(90, 'Violet', NULL, 1, 1),
-(40, 'Bonbon de Bréel', 'Variété ancienne', 2, 27),
-(20, 'Batavia', 'Pas de produit anti limace', 3, 26);
+INSERT INTO "vegetable" ("emergence", "growth_time", "variety", "comment", "zone_id", "family_id")
+VALUES 
+(20, 90, 'Blanc', 'Bulbe donné par mamie', 1, 1),
+(30, 90, 'Violet', NULL, 1, 1),
+(NULL, 40, 'Bonbon de Bréel', 'Variété ancienne', 2, 2),
+(10, 20, 'Batavia', 'Pas de produit anti limace', 3, 3);
 
 
 -- Tâches
@@ -36,8 +37,16 @@ INSERT INTO "task" (
     "type", "status", "status_code", "start_date_period", "end_date_period", "effective_date", "comment", "vegetable_id"
 ) VALUES
     ('Semis', 'à faire', 1,  '2024-01-15', '2024-03-15', '2024-01-15', 'semis', 1),
+    ('Semis', 'à faire', 1,  '2024-01-15', '2024-03-15', '2024-01-15', 'semis', 2),
+    ('Semis', 'à faire', 1,  '2024-01-15', '2024-03-15', '2024-01-15', 'semis', 4),
     ('Plantation', 'à faire', 1, '2024-04-01', '2024-06-30', '2024-04-01', 'plantation', 1),
-    ('Récolte', 'à faire', 1, '2024-04-01', '2024-06-30', '2024-04-01', 'recolte', 1);
+    ('Plantation', 'à faire', 1, '2024-04-01', '2024-06-30', '2024-04-01', 'plantation', 2),
+    ('Plantation', 'à faire', 1, '2024-04-01', '2024-06-30', '2024-04-01', 'plantation', 3),
+    ('Plantation', 'à faire', 1, '2024-04-01', '2024-06-30', '2024-04-01', 'plantation', 4),
+    ('Récolte', 'à faire', 1, '2024-04-01', '2024-06-30', '2024-04-01', 'recolte', 1),
+    ('Récolte', 'à faire', 1, '2024-04-01', '2024-06-30', '2024-04-01', 'recolte', 2),
+    ('Récolte', 'à faire', 1, '2024-04-01', '2024-06-30', '2024-04-01', 'recolte', 3),
+    ('Récolte', 'à faire', 1, '2024-04-01', '2024-06-30', '2024-04-01', 'recolte', 4);
 
 COMMIT;
 
