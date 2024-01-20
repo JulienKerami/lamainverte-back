@@ -5,6 +5,11 @@ class Vegetable extends Model {}
 
 
 Vegetable.init({
+
+  emergence : {
+    type: DataTypes.INTEGER,
+    allowNull: true
+  },
   growth_time : {
     type: DataTypes.INTEGER,
     allowNull: false
