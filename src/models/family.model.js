@@ -29,6 +29,10 @@ Family.init({
     type: DataTypes.INTEGER,
     allowNull: true
   },
+  growth_time : {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
   depth : {
     type: DataTypes.TEXT,
     allowNull: true

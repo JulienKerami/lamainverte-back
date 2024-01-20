@@ -42,7 +42,7 @@ async function createVegetable(req, res) {
     const userId = getUserIdFromToken(req.headers.authorization);
 
     // Récupérer les données envoyées par l'utilisateur
-    const {zoneId, familyId, growthTime, variety, comment, 
+    const {zoneId, familyId, emergence, growthTime, variety, comment, 
       start_date_period_seeding, end_date_period_seeding,
       start_date_period_planting, end_date_period_planting,
       start_date_period_harvest, end_date_period_harvest} = req.body;
@@ -84,6 +84,12 @@ async function createVegetable(req, res) {
       return;
     }
 
+    // vérifier s'il y a une emgergence,  que c'est un nombre
+    if(emergence && typeof growthTime !== "number") {
+      res.status(400).json({message: "Growth time must be a number"});
+      return;
+    }
+
     // vérifier qu'il y a un growthTime, et que c'est un nombre
     if(!growthTime || typeof growthTime !== "number") {
       res.status(400).json({message: "Growth time must be a number"});
@@ -107,12 +113,13 @@ async function createVegetable(req, res) {
       user_id: userId,
       zone_id: zoneId,
       family_id: familyId,
+      emergence: emergence,
       growth_time: growthTime,
       variety: variety,
       comment: comment,
     });
 
-
+    
     // vérifier que le front envoie une date de seeding, si oui, créer une tâche de seeding
     if(start_date_period_seeding && end_date_period_seeding) {
       await Task.create({
