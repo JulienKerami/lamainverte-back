@@ -8,6 +8,9 @@ const cors = require("cors"); // Sécurité avec le module CORS TODO
 
 const sanitizeHtml = require("sanitize-html"); // SECURITE doc : https://www.npmjs.com/package/sanitize-html
 
+const swaggerJsdoc = require("swagger-jsdoc"); // module pour générer la doc swagger
+const swaggerUi = require("swagger-ui-express"); // module pour afficher la doc swagger
+
 const router = require("./src/routers");
 
 
@@ -39,8 +42,29 @@ app.use(express.urlencoded({ extended: true })); // Body parser pour les body de
 
 // TODO : penser à mettre le middleware sanitize html ici pour retirer le code malveillant du body, voir exemple S06 
 
+// configuration de swagger
+
+const options = {
+  definition: {
+    openapi : '3.1.0',
+    info: {
+      title: "La Main Verte",
+      version: "0.1.0",
+      description:
+        "API pour l'application La Main Verte",
+    },
+  },
+  apis: ["./src/routers/*.js"],
+};
+
+const specs = swaggerJsdoc(options);
+
+
 // Configuration du serveur
+app.use('/api/doc', swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api", router);
+
+
 
 // Lancer le serveur
 const port = process.env.PORT || 3000;
