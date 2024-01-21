@@ -29,6 +29,10 @@ Family.init({
     type: DataTypes.INTEGER,
     allowNull: true
   },
+  growth_time : {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
   depth : {
     type: DataTypes.TEXT,
     allowNull: true
@@ -45,54 +49,31 @@ Family.init({
     type: DataTypes.TEXT,
     allowNull: true
   },
-  start_date_day_seeding : {
-    type: DataTypes.INTEGER,
+  start_date_seeding : {
+    type: DataTypes.TEXT,
     allowNull: true
   },
-  start_date_month_seeding : {
-    type: DataTypes.INTEGER,
+  end_date_seeding : {
+    type: DataTypes.TEXT,
     allowNull: true
   },
-  end_date_day_seeding : {
-    type: DataTypes.INTEGER,
-    allowNull: true
-  },
-  end_date_month_seeding : {
-    type: DataTypes.INTEGER,
-    allowNull: true
-  },
-  start_date_day_planting : {
-    type: DataTypes.INTEGER,
+  start_date_planting : {
+    type: DataTypes.TEXT,
     allowNull: false
   },
-  start_date_month_planting : {
-    type: DataTypes.INTEGER,
+  end_date_planting : {
+    type: DataTypes.TEXT,
     allowNull: false
   },
-  end_date_day_planting : {
-    type: DataTypes.INTEGER,
+  start_date_harvest : {
+    type: DataTypes.TEXT,
     allowNull: false
   },
-  end_date_month_planting : {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  }, 
-  start_date_day_harvest : {
-    type: DataTypes.INTEGER,
+  end_date_harvest : {
+    type: DataTypes.TEXT,
     allowNull: false
   },
-  start_date_month_harvest : {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  end_date_day_harvest : {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  end_date_month_harvest : {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
+
 } , {
   sequelize,
   tableName: 'family'
