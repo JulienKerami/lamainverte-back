@@ -12,3 +12,8 @@ Ce dépôt contient le code source du backend de l'application de suivi des tâc
 - **Express.js :** Framework web pour Node.js, facilitant la création d'API RESTful.
 - **PostgreSQL :** Système de gestion de base de données relationnelle
 
+## Configuration du projet
+
+Pour configurer le projet, vous devez créer un fichier `.env` à la racine du projet en vous basant sur le fichier `.env.example`. Ce fichier contient les variables d'environnement nécessaires au bon fonctionnement de l'application. Assurez-vous de renseigner les valeurs appropriées pour chaque variable.
+
+### installation de postgres
