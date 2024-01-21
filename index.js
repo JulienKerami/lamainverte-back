@@ -13,45 +13,44 @@ const swaggerUi = require("swagger-ui-express"); // module pour afficher la doc 
 
 const router = require("./src/routers");
 
-
 // Creation app Express
 const app = express();
 
-app.use(cors({ // Ce middleware ajoute un header "Access-Control-Allow-Origin: "...." à la réponse que Express renvoie au client !
-  origin: "*", // Ici, pour ne pas s'embêter, et parce qu'on a pas de donner sensible, je vous propose d'autoriser TOUS les domaines à accéder à notre API. Techniquement, il faudrait juste autoriser notre front ! 
-}));
-
+app.use(
+  cors({
+    // Ce middleware ajoute un header "Access-Control-Allow-Origin: "...." à la réponse que Express renvoie au client !
+    origin: "*", // Ici, pour ne pas s'embêter, et parce qu'on a pas de donner sensible, je vous propose d'autoriser TOUS les domaines à accéder à notre API. Techniquement, il faudrait juste autoriser notre front !
+  })
+);
 
 // middleware rate limiting
-const limiter = rateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minute
-  limit: 1000 // 1000 requête en 1 minute
-},
-{
-  validate : {xForwardedForHeader: false}
-}
+const limiter = rateLimit(
+  {
+    windowMs: 1 * 60 * 1000, // 1 minute
+    limit: 1000, // 1000 requête en 1 minute
+  },
+  {
+    validate: { xForwardedForHeader: false },
+  }
 );
 
 app.use(limiter);
-
 
 // Ajout d'un body parser
 app.use(express.json()); // Body parser pour les body de format application/json
 app.use(express.urlencoded({ extended: true })); // Body parser pour les body de format application/x-www-urlencoded
 
-
-// TODO : penser à mettre le middleware sanitize html ici pour retirer le code malveillant du body, voir exemple S06 
+// TODO : penser à mettre le middleware sanitize html ici pour retirer le code malveillant du body, voir exemple S06
 
 // configuration de swagger
 
 const options = {
   definition: {
-    openapi : '3.1.0',
+    openapi: "3.1.0",
     info: {
       title: "La Main Verte",
       version: "0.1.0",
-      description:
-        "API pour l'application La Main Verte",
+      description: "API pour l'application La Main Verte",
     },
   },
   apis: ["./src/routers/*.js"],
@@ -59,16 +58,15 @@ const options = {
 
 const specs = swaggerJsdoc(options);
 
+// Configuration du dossier public
+app.use(express.static("src/public"));
 
 // Configuration du serveur
-app.use('/api/doc', swaggerUi.serve, swaggerUi.setup(specs));
+app.use("/api/doc", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api", router);
-
-
 
 // Lancer le serveur
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
-
