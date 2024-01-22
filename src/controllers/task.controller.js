@@ -84,7 +84,7 @@ async function updateTask(req, res) {
     const nextTask = await nextTasks(task);
 
     if (!nextTask) {
-      return res.error(500).json({ message: "No next task" })
+      return res.error(500).json({ message: "No next task" });
     }
 
     // Mettez à jour la tâche suivante
