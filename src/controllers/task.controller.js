@@ -1,4 +1,10 @@
-const { Vegetable, Zone, User, Task } = require("../models/index.model");
+const {
+  Vegetable,
+  Zone,
+  User,
+  Task,
+  Family,
+} = require("../models/index.model");
 
 const { getUserIdFromToken } = require("./utils");
 
@@ -13,6 +19,9 @@ async function getAllTasks(req, res) {
         {
           model: Vegetable,
           include: [
+            {
+              model: Family,
+            },
             {
               model: Zone,
               include: [
@@ -37,7 +46,6 @@ async function getAllTasks(req, res) {
 }
 
 async function getOneTask(req, res) {
-
   const taskId = parseInt(req.params.taskId);
   try {
     const task = await Task.findByPk(taskId);
@@ -52,22 +60,22 @@ async function updateTask(req, res) {
   const { status_code, effective_date, comment } = req.body; //TODO : voir avec le front
 
   // 1 - Mettre à jour la tâche actuelle
-  
+
   //Mettre le bon statut en fonction du status_code reçu
   let status = "";
 
   switch (status_code) {
-  case 0:
-    status = "En attente";
-    break;
-  case 1:
-    status = "A faire";
-    break;
-  case 2:
-    status = "Fait";
-    break;
-  default:
-    console.log("Erreur");
+    case 0:
+      status = "En attente";
+      break;
+    case 1:
+      status = "A faire";
+      break;
+    case 2:
+      status = "Fait";
+      break;
+    default:
+      console.log("Erreur");
   }
 
   // Chercher la task par son id
@@ -79,7 +87,7 @@ async function updateTask(req, res) {
       status_code: status_code,
       status: status,
       effective_date: effective_date,
-      comment: comment
+      comment: comment,
     });
 
     res.status(200).json(task);
@@ -89,22 +97,22 @@ async function updateTask(req, res) {
     // Fonction pour trouver la tâche suivante en fonction du type actuel
     const nextTasks = async (task) => {
       switch (task.type) {
-      case "seeding":
-        return await Task.findOne({
-          where: {
-            vegetable_id: task.vegetable_id,
-            type: "planting"
-          }
-        });
-      case "planting":
-        return await Task.findOne({
-          where: {
-            vegetable_id: task.vegetable_id,
-            type: "harvest"
-          }
-        });
-      default:
-        return null; // Si le type n'est ni "seeding" ni "planting"
+        case "seeding":
+          return await Task.findOne({
+            where: {
+              vegetable_id: task.vegetable_id,
+              type: "planting",
+            },
+          });
+        case "planting":
+          return await Task.findOne({
+            where: {
+              vegetable_id: task.vegetable_id,
+              type: "harvest",
+            },
+          });
+        default:
+          return null; // Si le type n'est ni "seeding" ni "planting"
       }
     };
 
@@ -118,18 +126,15 @@ async function updateTask(req, res) {
     // Mettez à jour la tâche suivante
     await nextTask.update({
       status_code: 1,
-      status: "A faire"
+      status: "A faire",
     });
-
-
   } catch (error) {
     res.status(500).json(error);
   }
 }
 
-
 module.exports = {
   getAllTasks,
   getOneTask,
-  updateTask
+  updateTask,
 };
