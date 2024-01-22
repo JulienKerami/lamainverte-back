@@ -15,7 +15,7 @@
     "create_render_family": "psql -h dpg-cmjb3vgcmk4c739nkllg-a.frankfurt-postgres.render.com -U administrateurlamainverte lamainverte -f data/family.sql",
     "create_render_seeding": "psql -h dpg-cmjb3vgcmk4c739nkllg-a.frankfurt-postgres.render.com -U administrateurlamainverte lamainverte -f data/seeding.sql",
     "db_local_reset": "npm run create_local_tables && npm run create_local_family && npm run create_local_seeding",
-    "db_render_reset": "npm run create_render_tables && npm run create_render_family && npm run create_render_seeding"
+    "db_render_reset": "npm run create_render_tables && npm run create_render_family"
   },
   "repository": {
     "type": "git",
