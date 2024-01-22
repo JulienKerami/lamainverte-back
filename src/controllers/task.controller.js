@@ -1,8 +1,35 @@
-const { Task } = require('../models/index.model');
+const { Vegetable, Zone, User, Task } = require("../models/index.model");
 
-async function getAllTasks(req, res) { 
+const { getUserIdFromToken } = require("./utils");
+
+async function getAllTasks(req, res) {
+  const userId = getUserIdFromToken(req.headers.authorization);
+
+  // récupérer toutes les tâches "à faire" d'un utilisateur
+
   try {
-    const tasks = await Task.findAll();
+    const tasks = await Task.findAll({
+      include: [
+        {
+          model: Vegetable,
+          include: [
+            {
+              model: Zone,
+              include: [
+                {
+                  model: User,
+                  where: { id: userId },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      where: {
+        status_code: 1,
+      },
+    });
+
     res.status(200).json(tasks);
   } catch (error) {
     res.status(500).json(error);
@@ -10,6 +37,7 @@ async function getAllTasks(req, res) {
 }
 
 async function getOneTask(req, res) {
+
   const taskId = parseInt(req.params.taskId);
   try {
     const task = await Task.findByPk(taskId);
@@ -98,7 +126,6 @@ async function updateTask(req, res) {
     res.status(500).json(error);
   }
 }
-
 
 
 module.exports = {
