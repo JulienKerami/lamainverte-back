@@ -5,11 +5,11 @@ BEGIN;
 
 -- CREATION DE 2 USERS
 
-INSERT INTO "user" ("email", "password", "first_name", "last_name")
-VALUES ('julienlebg@caramail.com', 'password123', 'Julien', 'LePotagiste');
+INSERT INTO "user" ("id", "email", "password", "first_name", "last_name")
+VALUES (1, 'julienlebg@caramail.com', 'password123', 'Julien', 'LePotagiste');
 
-INSERT INTO "user" ("email", "password", "first_name", "last_name")
-VALUES ('superdorothee@gmail.com', 'password123', 'Dorothee', 'LaPotagiste');
+INSERT INTO "user" ("id", "email", "password", "first_name", "last_name")
+VALUES (2, 'superdorothee@gmail.com', 'password123', 'Dorothee', 'LaPotagiste');
 
 -- CREATION DE ZONES
 INSERT INTO "zone" ("name", "user_id")
@@ -26,7 +26,7 @@ VALUES ('Potager', 2);
 -- CREATION DE VEGETABLES
 INSERT INTO "vegetable" ("emergence", "growth_time", "variety", "comment", "zone_id", "family_id")
 VALUES 
-(20, 90, 'Blanc', 'Bulbe donné par mamie', 1, 1),
+(20, 90, 'Blanc', 'Bulbe donné par mamie', 1, 2),
 (30, 90, 'Violet', NULL, 1, 1),
 (NULL, 40, 'Bonbon de Bréel', 'Variété ancienne', 2, 2),
 (10, 20, 'Batavia', 'Pas de produit anti limace', 3, 3);
