@@ -267,11 +267,13 @@ async function createVegetable(req, res) {
 
 async function deleteVegetable(req, res) {
   try {
-    const zoneId = parseInt(req.params.vegetableId);
 
-    await Zone.destroy({
+    const vegetableId = parseInt(req.params.vegetableId);
+  
+    await Vegetable.destroy({
+
       where: {
-        id: zoneId,
+        id: vegetableId,
       },
     });
 
