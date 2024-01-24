@@ -237,12 +237,13 @@ async function createVegetable(req, res) {
     }
 
     // créer une tâche une tâche planting
-    let statusCode =
-      start_date_period_seeding && end_date_period_seeding ? 0 : 1;
+    let statusCode = start_date_period_seeding && end_date_period_seeding ? 0 : 1;
+
+    let status = start_date_period_seeding && end_date_period_seeding ? "En attente" : "A faire";
 
     await Task.create({
       type: "planting",
-      status: "En attente",
+      status: status,
       status_code: statusCode,
       start_date_period: start_date_period_planting,
       end_date_period: end_date_period_planting,
