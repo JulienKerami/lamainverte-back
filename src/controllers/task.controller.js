@@ -14,27 +14,34 @@ async function getAllTasks(req, res) {
   // récupérer toutes les tâches "à faire" d'un utilisateur
 
   try {
-    const tasks = await User.findByPk(userId, {
-      include: {
-        model: Zone,
-        as: "zone",
-        include: {
+    const tasks = await Task.findAll({
+      include: [
+        {
           model: Vegetable,
-          as: "vegetable",
-          include: {
-            model: Task,
-            as: "task",
-            where: {
-              status_code: 1,
+          include: [
+            {
+              model: Zone,
+              include: [
+                {
+                  model: User,
+                  // Nous n'avons plus besoin de 'where' ici
+                  //attributes: [], // Incluez ceci pour éviter de récupérer les attributs de User
+                },
+              ],
             },
-          },
+          ],
         },
+      ],
+      where: {
+        status_code: 1,
+        "$Vegetable.Zone.User.id$": userId, // Filtrage basé sur l'ID de l'utilisateur
       },
     });
 
     res.status(200).json(tasks);
   } catch (error) {
     res.status(500).json(error);
+    console.log(error);
   }
 }
 
