@@ -141,6 +141,10 @@ async function createVegetable(req, res) {
       end_date_period_harvest,
     } = req.body;
 
+    // verifier que la zoneId existe bien en base de données
+
+    // vérifier que la familyId existe bien en base de données
+
     // vérifier que  start_date_period_planting, end_date_period_planting,     start_date_period_harvest, end_date_period_harvest sont fournies
 
     if (
@@ -237,9 +241,13 @@ async function createVegetable(req, res) {
     }
 
     // créer une tâche une tâche planting
-    let statusCode = start_date_period_seeding && end_date_period_seeding ? 0 : 1;
+    let statusCode =
+      start_date_period_seeding && end_date_period_seeding ? 0 : 1;
 
-    let status = start_date_period_seeding && end_date_period_seeding ? "En attente" : "A faire";
+    let status =
+      start_date_period_seeding && end_date_period_seeding
+        ? "En attente"
+        : "A faire";
 
     await Task.create({
       type: "planting",
@@ -268,11 +276,9 @@ async function createVegetable(req, res) {
 
 async function deleteVegetable(req, res) {
   try {
-
     const vegetableId = parseInt(req.params.vegetableId);
-  
-    await Vegetable.destroy({
 
+    await Vegetable.destroy({
       where: {
         id: vegetableId,
       },

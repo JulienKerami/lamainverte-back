@@ -10,7 +10,7 @@ const { getUserIdFromToken } = require("./utils");
 
 async function getAllTasks(req, res) {
   const userId = getUserIdFromToken(req.headers.authorization);
-
+  console.log(userId);
   // récupérer toutes les tâches "à faire" d'un utilisateur
 
   try {
@@ -20,14 +20,12 @@ async function getAllTasks(req, res) {
           model: Vegetable,
           include: [
             {
-              model: Family,
-            },
-            {
               model: Zone,
               include: [
                 {
                   model: User,
-                  where: { id: userId },
+                  // Nous n'avons plus besoin de 'where' ici
+                  //attributes: [], // Incluez ceci pour éviter de récupérer les attributs de User
                 },
               ],
             },
@@ -36,12 +34,14 @@ async function getAllTasks(req, res) {
       ],
       where: {
         status_code: 1,
+        "$Vegetable.Zone.User.id$": userId, // Filtrage basé sur l'ID de l'utilisateur
       },
     });
 
     res.status(200).json(tasks);
   } catch (error) {
     res.status(500).json(error);
+    console.log(error);
   }
 }
 
@@ -65,17 +65,17 @@ async function updateTask(req, res) {
   let status = "";
 
   switch (status_code) {
-  case 0:
-    status = "En attente";
-    break;
-  case 1:
-    status = "A faire";
-    break;
-  case 2:
-    status = "Fait";
-    break;
-  default:
-    console.log("Erreur");
+    case 0:
+      status = "En attente";
+      break;
+    case 1:
+      status = "A faire";
+      break;
+    case 2:
+      status = "Fait";
+      break;
+    default:
+      console.log("Erreur");
   }
 
   // Chercher la task par son id
@@ -97,22 +97,22 @@ async function updateTask(req, res) {
     // Fonction pour trouver la tâche suivante en fonction du type actuel
     const nextTasks = async (task) => {
       switch (task.type) {
-      case "seeding":
-        return await Task.findOne({
-          where: {
-            vegetable_id: task.vegetable_id,
-            type: "planting",
-          },
-        });
-      case "planting":
-        return await Task.findOne({
-          where: {
-            vegetable_id: task.vegetable_id,
-            type: "harvest",
-          },
-        });
-      default:
-        return null; // Si le type n'est ni "seeding" ni "planting"
+        case "seeding":
+          return await Task.findOne({
+            where: {
+              vegetable_id: task.vegetable_id,
+              type: "planting",
+            },
+          });
+        case "planting":
+          return await Task.findOne({
+            where: {
+              vegetable_id: task.vegetable_id,
+              type: "harvest",
+            },
+          });
+        default:
+          return null; // Si le type n'est ni "seeding" ni "planting"
       }
     };
 
