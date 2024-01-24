@@ -20,11 +20,13 @@ async function getAllTasks(req, res) {
           model: Vegetable,
           include: [
             {
+              model: Family,
+            },
+            {
               model: Zone,
               include: [
                 {
                   model: User,
-                  // Nous n'avons plus besoin de 'where' ici
                   //attributes: [], // Incluez ceci pour éviter de récupérer les attributs de User
                 },
               ],
