@@ -42,6 +42,9 @@ CREATE TABLE IF NOT EXISTS "family" (
     "end_date_planting" TEXT NOT NULL,
     "start_date_harvest" TEXT NOT NULL,
     "end_date_harvest" TEXT NOT NULL,
+    "img_small" TEXT,
+    "img_medium" TEXT,
+    "img_large" TEXT,
     "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP
 );
