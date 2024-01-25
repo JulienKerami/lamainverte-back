@@ -17,6 +17,7 @@ async function getZonesVegetablesTasks(req, res) {
           include: {
             model: Task,
             as: "task",
+            order: [["id", "ASC"]],
           },
         },
       },
