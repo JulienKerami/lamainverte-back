@@ -40,8 +40,10 @@ app.use(limiter);
 app.use(express.json()); // Body parser pour les body de format application/json
 app.use(express.urlencoded({ extended: true })); // Body parser pour les body de format application/x-www-urlencoded
 
+
+// Retirer tout le code malveillant du body par le biais du middleware de sanitize-html
+// Suppression des balises HTML et echappement des caractères spéciaux pour éviter les injections XSS
 app.use((req, res, next) => {
-  // Retirer tout le code malveillant du body par le biais du middleware de sanitize-html
 
   Object.keys(req.body).forEach(key => { 
     if (typeof req.body[key] === "string") {
