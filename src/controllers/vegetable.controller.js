@@ -11,6 +11,7 @@ async function getZonesVegetablesTasks(req, res) {
       include: {
         model: Zone,
         as: "zone",
+        order: [["id", "ASC"]],
         include: {
           model: Vegetable,
           as: "vegetable",
