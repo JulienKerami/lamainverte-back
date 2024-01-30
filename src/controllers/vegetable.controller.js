@@ -1,11 +1,16 @@
-const { Vegetable, Zone, User, Task } = require("../models/index.model");
+const {
+  Vegetable,
+  Zone,
+  User,
+  Task,
+  Family,
+} = require("../models/index.model");
 
 const { getUserIdFromToken } = require("./utils");
 
 async function getZonesVegetablesTasks(req, res) {
   const userId = getUserIdFromToken(req.headers.authorization);
 
-  //const userId = 1;
   try {
     const zones = await User.findByPk(userId, {
       include: {
@@ -15,15 +20,20 @@ async function getZonesVegetablesTasks(req, res) {
         include: {
           model: Vegetable,
           as: "vegetable",
-          include: {
-            model: Task,
-            as: "task",
-            order: [["id", "ASC"]],
-          },
+          include: [
+            {
+              model: Task,
+              as: "task",
+              order: [["id", "ASC"]],
+            },
+            {
+              model: Family,
+              attributes: ["img_small", "img_medium", "img_large"],
+            },
+          ],
         },
       },
     });
-    //console.log(zones);
 
     // je crée une const avec la date actuelle
 
