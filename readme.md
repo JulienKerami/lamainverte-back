@@ -26,4 +26,4 @@ Pour configurer le projet, vous devez créer un fichier `.env` à la racine du p
 
 ## Documentation swagger
 
-https://la-main-verte-back-end.onrender.com/doc
+https://la-main-verte-back-end.onrender.com/api/doc
