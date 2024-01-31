@@ -1,12 +1,12 @@
 const { Router } = require("express");
-const userController = require('../controllers/user.controller');
+const userController = require("../controllers/user.controller");
 const userRouter = Router();
-
 /**
  * @swagger
- * /signup:
+ * /users:
  *   post:
  *     summary: Créer un nouvel utilisateur
+ *     description: Enregistre un nouvel utilisateur dans la base de données.
  *     requestBody:
  *       required: true
  *       content:
@@ -16,24 +16,66 @@ const userRouter = Router();
  *             properties:
  *               firstname:
  *                 type: string
- *                 example: Sylvain
+ *                 example: "Sylvain"
  *               lastname:
  *                 type: string
- *                 example: Le Canard
+ *                 example: "OClock"
  *               email:
  *                 type: string
- *                 example: user@lepetitcanardjs.com
+ *                 example: "Sylvain.OClock@coincoin.com"
  *               password:
  *                 type: string
- *                 example: Coincoin
+ *                 example: "L3adFrontFor3v3r"
  *     responses:
  *       200:
- *         description: Succès renvoie l'utilisateur créé
+ *         description: Utilisateur créé avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *               example:
+ *                 message: "User created"
+ *       400:
+ *         description: Données manquantes ou invalides
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *               example:
+ *                 message: "Missing email or password"
+ *       409:
+ *         description: Conflit, email déjà utilisé
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *               example:
+ *                 message: "Email already used"
  *       500:
- *         description: Erreur serveur
- * /signin:
+ *         description: Erreur interne du serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *               example:
+ *                 message: "Erreur interne du serveur"
+ *
+ * /login:
  *   post:
- *     summary: Se connecter à l'application
+ *     summary: Connecter un utilisateur
+ *     description: Authentifie un utilisateur et renvoie un token JWT.
  *     requestBody:
  *       required: true
  *       content:
@@ -43,17 +85,48 @@ const userRouter = Router();
  *             properties:
  *               email:
  *                 type: string
- *                 example: user@lepetitcanardjs.com
+ *                 example: "Sylvain.OClock@coincoin.com"
  *               password:
  *                 type: string
- *                 example: Coincoin
+ *                 example: "L3adFrontFor3v3r"
  *     responses:
  *       200:
- *         description: Succès renvoie l'utilisateur créé
+ *         description: Authentification réussie
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 token:
+ *                   type: string
+ *               example:
+ *                 message: "Authentification OK"
+ *                 token: "jwt.token.here"
+ *       401:
+ *         description: Authentification invalide
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *               example:
+ *                 message: "Autentification invalide, vérifiez les données saisies"
  *       500:
- *         description: Erreur serveur
+ *         description: Erreur interne du serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *               example:
+ *                 message: "Erreur interne du serveur"
  */
-
 
 userRouter.post("/signin", userController.createUser);
 userRouter.post("/login", userController.loginUser);

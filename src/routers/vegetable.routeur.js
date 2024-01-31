@@ -6,10 +6,11 @@ const vegetableRouter = Router();
  * @swagger
  * /vegetables:
  *   get:
- *     summary: Récupérer la liste de toutes les zones, les plants et les tâches associées d'un utilisateur
+ *     summary: Récupérer les zones, les légumes et les tâches d'un utilisateur
+ *     description: Renvoie les zones, avec les légumes et leurs tâches associées, pour un utilisateur authentifié.
  *     responses:
  *       200:
- *         description: Succès renvoie la liste de toutes les zones, les plants et les tâches associées d'un utilisateur. Chaque légume inclut maintenant un 'status' et un 'status_code'.
+ *         description: Succès - renvoie les zones, les légumes et les tâches
  *         content:
  *           application/json:
  *             schema:
@@ -18,54 +19,127 @@ const vegetableRouter = Router();
  *                 zones:
  *                   type: array
  *                   items:
- *                     type: object
- *                     properties:
- *                       id:
- *                         type: number
- *                       name:
- *                         type: string
- *                       vegetable:
- *                         type: array
- *                         items:
- *                           type: object
- *                           properties:
- *                             id:
- *                               type: number
- *                             emergence:
- *                               type: number
- *                             growthTime:
- *                               type: number
- *                             variety:
- *                               type: string
- *                             comment:
- *                               type: string
- *                             status:
- *                               type: string
- *                               description: Statut du légume basé sur les tâches (e.g., "A récolter", "A planter").
- *                             status_code:
- *                               type: number
- *                               description: Code numérique associé au statut du légume.
- *                             task:
- *                               type: array
- *                               items:
- *                                 type: object
- *                                 properties:
- *                                   id:
- *                                     type: number
- *                                   type:
- *                                     type: string
- *                                   status:
- *                                     type: string
- *                                   status_code:
- *                                     type: number
- *                                   start_date_period:
- *                                     type: string
- *                                     format: date
- *                                   end_date_period:
- *                                     type: string
- *                                     format: date
+ *                     $ref: '#/components/schemas/Zone'
  *       500:
  *         description: Erreur serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *               example:
+ *                 message: "Erreur serveur"
+ *
+ *
+ *   post:
+ *     summary: Créer un nouveau légume
+ *     description: Enregistre un nouveau légume dans la base de données.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Vegetable'
+ *     responses:
+ *       200:
+ *         description: Légume créé avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *               example:
+ *                 message: "Vegetable created"
+ *       400:
+ *         description: Données invalides
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *               example:
+ *                 message: "Start date period planting, end date period planting, start date period harvest and end date period harvest must be provided"
+ *       500:
+ *         description: Erreur serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *               example:
+ *                 message: "Erreur serveur"
+ *
+ * /vegetables/{vegetableId}:
+ *   delete:
+ *     summary: Supprimer un légume
+ *     description: Supprime un légume de la base de données.
+ *     parameters:
+ *       - name: vegetableId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       204:
+ *         description: Légume supprimé avec succès
+ *       500:
+ *         description: Erreur serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *               example:
+ *                 message: "Erreur serveur"
+ *
+ * components:
+ *   schemas:
+ *     Zone:
+ *       type: object
+ *       properties:
+ *         id:
+ *         type: integer
+ *         description: L'identifiant unique de la zone
+ *         example: 1
+ *       name:
+ *         type: string
+ *         description: Le nom de la zone
+ *         example: "Jardin principal"
+ *       user_id:
+ *         type: integer
+ *         description: L'identifiant unique de l'utilisateur associé à cette zone
+ *         example: 101
+ *     Vegetable:
+ *       type: object
+ *       properties:
+ *         emergence:
+ *           type: integer
+ *           example: 10
+ *         growth_time:
+ *           type: integer
+ *           example: 60
+ *         variety:
+ *           type: string
+ *           example: "Carotte Nantaise"
+ *         comment:
+ *           type: string
+ *           example: "Semer en ligne"
+ *         zone_id:
+ *           type: integer
+ *           example: 1
+ *         family_id:
+ *           type: integer
+ *           example: 3
  */
 
 vegetableRouter.get("/vegetables", vegetableController.getZonesVegetablesTasks); //Remplacement de getAllVegetable par getZonesVegetablesTasks
