@@ -18,8 +18,14 @@ const app = express();
 
 app.use(
   cors({
-    // Ce middleware ajoute un header "Access-Control-Allow-Origin: "...." à la réponse que Express renvoie au client !
-    origin: ["https://la-main-verte.vercel.app","http://localhost"], // Ici, pour ne pas s'embêter, et parce qu'on a pas de donner sensible, je vous propose d'autoriser TOUS les domaines à accéder à notre API. Techniquement, il faudrait juste autoriser notre front !
+    origin: function (origin, callback) {
+      const allowedOrigins = ["https://la-main-verte.vercel.app/", "http://localhost:5173"];
+      if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.startsWith("http://localhost:")) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    }
   })
 );
 
