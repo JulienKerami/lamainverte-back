@@ -23,3 +23,7 @@ Pour configurer le projet, vous devez créer un fichier `.env` à la racine du p
 - cloner le projet
 - installer les dépendances `npm install`
 - créer le fichier .env  partir du .env.example
+
+## Documentation swagger
+
+https://la-main-verte-back-end.onrender.com/doc
