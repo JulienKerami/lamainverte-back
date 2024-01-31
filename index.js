@@ -19,7 +19,7 @@ const app = express();
 app.use(
   cors({
     // Ce middleware ajoute un header "Access-Control-Allow-Origin: "...." à la réponse que Express renvoie au client !
-    origin: "https://la-main-verte.vercel.app/", // Ici, pour ne pas s'embêter, et parce qu'on a pas de donner sensible, je vous propose d'autoriser TOUS les domaines à accéder à notre API. Techniquement, il faudrait juste autoriser notre front !
+    origin: "https://la-main-verte.vercel.app", // Ici, pour ne pas s'embêter, et parce qu'on a pas de donner sensible, je vous propose d'autoriser TOUS les domaines à accéder à notre API. Techniquement, il faudrait juste autoriser notre front !
   })
 );
 
