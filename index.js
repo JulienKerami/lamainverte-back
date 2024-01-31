@@ -18,14 +18,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      const allowedOrigins = ["https://la-main-verte.vercel.app/", "http://localhost:5173"];
-      if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.startsWith("http://localhost:")) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    }
+    // Ce middleware ajoute un header "Access-Control-Allow-Origin: "...." à la réponse que Express renvoie au client !
+    origin: '*' //"https://la-main-verte.vercel.app" // TODO : mettre l'adresse du front une fois les essais terminés
   })
 );
 
