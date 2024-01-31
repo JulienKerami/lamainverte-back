@@ -128,7 +128,8 @@ async function getZonesVegetablesTasks(req, res) {
 
     res.status(200).json({ zones: serializedZones }); // Envoyez les zones sérialisées
   } catch (error) {
-    res.status(400).json(error);
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 }
 
@@ -282,7 +283,8 @@ async function createVegetable(req, res) {
 
     res.status(200).json({ message: "Vegetable created" });
   } catch (error) {
-    res.status(500).json(error);
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 }
 
@@ -298,7 +300,8 @@ async function deleteVegetable(req, res) {
 
     res.status(204).end();
   } catch (error) {
-    res.status(500).json(error);
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 }
 

@@ -42,8 +42,8 @@ async function getAllTasks(req, res) {
 
     res.status(200).json(tasks);
   } catch (error) {
-    res.status(500).json(error);
-    console.log(error);
+    res.status(500).json({ message: "Erreur interne du serveur" });
+    console.error(error);
   }
 }
 
@@ -132,7 +132,7 @@ async function updateTask(req, res) {
       status: "A faire",
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 

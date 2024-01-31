@@ -1,11 +1,8 @@
-const { Zone} = require('../models/index.model');
-const { getUserIdFromToken } = require('./utils');
-
-
+const { Zone } = require("../models/index.model");
+const { getUserIdFromToken } = require("./utils");
 
 async function createZone(req, res) {
   try {
-
     // Récupérer l'id de l'utilisateur connecté
     const userId = getUserIdFromToken(req.headers.authorization);
 
@@ -27,7 +24,7 @@ async function createZone(req, res) {
     });
 
     if (nameAlreadyUsed) {
-      res.status(400).json({ message: "Name already used" });
+      res.status(409).json({ message: "Name already used" }); // erreur 409 pour conflit
       return;
     }
 
@@ -37,18 +34,16 @@ async function createZone(req, res) {
       name: name,
     });
 
-    res.status(200).json(zone);
-
+    res.status(200).json({ message: "Zone created", zone: zone });
   } catch (error) {
     res.status(500).json(error);
   }
 }
 
 async function deleteZone(req, res) {
-
   try {
     const zoneId = parseInt(req.params.zoneId);
-  
+
     await Zone.destroy({
       where: {
         id: zoneId,
@@ -56,16 +51,14 @@ async function deleteZone(req, res) {
     });
 
     res.status(204).end();
-
   } catch (error) {
-    res.status(500).json(error);
+    console.error(error);
+    res.status(500).json({ message: "Erreur interne du serveur" });
   }
 }
 
-
 async function updateZone(req, res) {
   try {
-
     // Récupérer l'id de l'utilisateur connecté
     const userId = getUserIdFromToken(req.headers.authorization);
 
@@ -88,7 +81,7 @@ async function updateZone(req, res) {
     });
 
     if (nameAlreadyUsed) {
-      res.status(400).json({ message: "Name already used" });
+      res.status(409).json({ message: "Name already used" }); // erreur 409 pour conflit
       return;
     }
 
@@ -98,9 +91,9 @@ async function updateZone(req, res) {
     await zone.update({ name: name });
 
     res.status(200).json(zone);
-    
   } catch (error) {
-    res.status(500).json(error);
+    console.error(error);
+    res.status(404).json({ message: "Zone not found" });
   }
 }
 
